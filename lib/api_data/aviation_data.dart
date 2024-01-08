@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:aviation_tracking/api_data/my_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +10,7 @@ class FlightService {
     final DateTime now = DateTime.now();
 
     var url = Uri.parse(
-        'http://api.aviationstack.com/v1/flights?access_key=5e3da6232fb7ae402c5b716ce30fd244&flight_status=active');
+        'http://api.aviationstack.com/v1/flights?access_key=$API_KEY&flight_status=active');
     var response = await http.get(url);
     var jsonResponse = jsonDecode(response.body);
     BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
@@ -41,7 +42,7 @@ class FlightService {
 
   Future<Set<Marker>> getAirports() async {
     var url = Uri.parse(
-        'http://api.aviationstack.com/v1/airports?access_key=5e3da6232fb7ae402c5b716ce30fd244');
+        'http://api.aviationstack.com/v1/airports?access_key=$API_KEY');
     var response = await http.get(url);
     var jsonResponse = jsonDecode(response.body);
 
@@ -67,7 +68,7 @@ class FlightService {
   Future<List<Map<String, dynamic>>> getFlightDetails(
       String airline, String flightNumber, String date) async {
     var url = Uri.parse(
-        'http://api.aviationstack.com/v1/flights?access_key=5e3da6232fb7ae402c5b716ce30fd244&&airline_iata=$airline&flight_iata=$flightNumber');
+        'http://api.aviationstack.com/v1/flights?access_key=$API_KEY&&airline_iata=$airline&flight_iata=$flightNumber');
     var response = await http.get(url);
     var jsonResponse = jsonDecode(response.body);
 
